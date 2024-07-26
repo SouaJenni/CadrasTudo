@@ -5,6 +5,15 @@
 package com.mycompany.cadrastudo;
 
 //import java.util.regex.Matcher;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.lang.String;
+
 //import java.util.regex.Pattern;
 
 /**
@@ -12,24 +21,14 @@ package com.mycompany.cadrastudo;
  * @author Daniel Dória
  */
 public class Registro extends javax.swing.JFrame {
-    
-    /*private static final String EMAIL_PATTERN = "^[_𝐴−𝑍𝑎−𝑧0−9−\\\\+] + (\\\\.[_𝐴− 𝑍𝑎−𝑧0−9−]+) ∗ @ [𝐴−𝑍𝑎−𝑧0−9−]\n" +
-"+ (\\\\.[𝐴−𝑍𝑎−𝑧0−9]+) ∗ (\\\\.[𝐴−𝑍𝑎−𝑧]{2,})$";
-    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-
-    public static boolean ValidaEmail(String email) {
-        //if (email == null) {
-        if(txtEmail.getText().equals(null)){
-            return false;
-        }
-
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }/*
-    
     /**
      * Creates new form Registro
      */
+    private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    private static final String USERNAME_REGEX = "^[a-zA-Z0-9@\\-_\\+]+$";
+     private static final String DATE_REGEX = "^\\d{2}/\\d{2}/\\d{4}$";
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
+    
     public Registro() {
         initComponents();
 
@@ -71,9 +70,27 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel2.setText("Email:");
 
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Data de nascimento:");
 
+        txtNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNascimentoActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Nome de usuário:");
+
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Senha:");
 
@@ -172,12 +189,46 @@ public class Registro extends javax.swing.JFrame {
 
     private void bttRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttRegistrarActionPerformed
         // TODO add your handling code here:
-        if(txtConfSenha.getPassword() != txtSenha.getPassword()){
-          System.out.println("As senhas são diferentes, tente novamente!");
-        }
-        
-        
+            if(txtConfSenha.getPassword() != txtSenha.getPassword()){
+              System.out.println("As senhas são diferentes, tente novamente!");
+            }  
     }//GEN-LAST:event_bttRegistrarActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+        String email = txtEmail.getText();
+            if (ValidaEmail(email)) {
+                System.out.println("Email válido.");
+            } else {
+                System.out.println("Email inválido.");
+            }
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+        String usuario = txtUsuario.getText();
+            if (ValidaUsuario(usuario)) {
+                System.out.println("Nome de usuário válido.");
+            } else {
+                System.out.println("Nome de usuário inválido.");
+            }
+
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void txtNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNascimentoActionPerformed
+        // TODO add your handling code here:
+        String data = txtNascimento.getText();
+        validaData(data);
+        String String;
+        
+        boolean ehMaior = maiorDe18(data);
+        
+            if(ehMaior){
+                System.out.println("Idade válida!");
+            }else{
+                System.out.println("Idade inválida, menor de 18!");
+            }
+    }//GEN-LAST:event_txtNascimentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +264,60 @@ public class Registro extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static boolean validaEmail(String email) {
+        // Compila a regex em um Pattern
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        // Cria um Matcher para verificar o email
+        Matcher matcher = pattern.matcher(email);
+        // Retorna se o email corresponde à regex
+        return matcher.matches();
+    }
+    
+    public static boolean validaUsuario(String usuario) {
+        Pattern pattern = Pattern.compile(USERNAME_REGEX);
+        Matcher matcher = pattern.matcher(usuario);
+        return matcher.matches();
+    }
+    
+    public static boolean validaData(String data) {
+        Pattern pattern = Pattern.compile(DATE_REGEX);
+        Matcher matcher = pattern.matcher(data);
+            if (!matcher.matches()) {
+                return false;
+            }
+        
+        DATE_FORMAT.setLenient(false);
+            try {
+                DATE_FORMAT.parse(data);
+                return true;
+            } catch (ParseException e) {
+                return false;
+            }
+    }
+    
+    public static boolean maiorDe18(String data) {
+        if (!validaData(data)) {
+            return false;
+        }
+
+        try {
+            Date birthDate = DATE_FORMAT.parse(data);
+            Calendar birthCal = Calendar.getInstance();
+            birthCal.setTime(birthDate);
+
+            Calendar todayCal = Calendar.getInstance();
+
+            int age = todayCal.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
+            if (todayCal.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+
+            return age >= 18;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bttRegistrar;
@@ -230,4 +335,12 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private boolean ValidaEmail(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private boolean ValidaUsuario(String usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
