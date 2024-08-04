@@ -185,6 +185,14 @@ public class Registro extends javax.swing.JFrame {
         if (!senha.equals(confirmarSenha)) {
             JOptionPane.showMessageDialog(null, "As senhas são diferentes.");
         }   
+        
+        if(validaEmail(email) && validaUsuario(usuario) && ehMaior && senha.equals(confirmarSenha)){
+            Tabela tabela = new Tabela ();
+            this.setVisible(false);
+            tabela.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Confirme as informações antes de prosseguir!");
+        }
     }//GEN-LAST:event_btRegistrarActionPerformed
 
     /**
