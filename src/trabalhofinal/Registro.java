@@ -246,7 +246,7 @@ public class Registro extends javax.swing.JFrame {
             public void run() {
                 new Registro().setVisible(true);
             }
-        });
+       });
 }
     
     private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
