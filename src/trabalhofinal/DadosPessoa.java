@@ -5,18 +5,19 @@
 package trabalhofinal;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author Daniel Dória
  */
-public class DadosPessoa {
+public class DadosPessoa{
     
     private String nome;
     private String email;
     private String usuario;
-    private String nascimento;
+    private Date nascimento;
     private boolean inscrito;
     private int idade;
     private String sexo;
@@ -45,11 +46,11 @@ public class DadosPessoa {
         this.usuario = usuario;
     }
 
-    public String getNascimento() {
+    public Date getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(String nascimento) {
+    public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
 

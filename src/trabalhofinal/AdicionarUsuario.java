@@ -6,8 +6,12 @@ package trabalhofinal;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -17,11 +21,12 @@ import javax.swing.JOptionPane;
  * @author Daniel Dória
  */
 public class AdicionarUsuario extends javax.swing.JFrame {
-
+    private List<DadosPessoa> dados;
     /**
      * Creates new form AdicionarUsuario
      */
-    public AdicionarUsuario() {
+    public AdicionarUsuario(List<DadosPessoa> dados) {
+        this.dados = dados;
         initComponents();
     }
 
@@ -81,6 +86,11 @@ public class AdicionarUsuario extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Data de inscrição:");
 
+        txtNascimento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNascimentoFocusLost(evt);
+            }
+        });
         txtNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNascimentoActionPerformed(evt);
@@ -270,8 +280,10 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Apenas maiores de 18 podem se registrar!");
             }   
         
+        //dados.add NOVO USUARIO
+        
         if(validaEmail(email) && validaUsuario(usuario) && ehMaior){
-            Tabela tabela = new Tabela ();
+            Tabela tabela = new Tabela (this.dados);
             this.setVisible(false);
             tabela.setVisible(true);
         }else{
@@ -292,43 +304,27 @@ public class AdicionarUsuario extends javax.swing.JFrame {
 
     private void jLabel7AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel7AncestorAdded
         // TODO add your handling code here:
-      
     }//GEN-LAST:event_jLabel7AncestorAdded
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void txtNascimentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNascimentoFocusLost
+        // TODO add your handling code here:
+            if(this.txtNascimento.getText().length()<10){
+                return;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdicionarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdicionarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdicionarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdicionarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            int dia = Integer.parseInt(this.txtNascimento.getText().substring(0,2));
+            int mes = Integer.parseInt(this.txtNascimento.getText().substring(3,5));
+            int ano = Integer.parseInt(this.txtNascimento.getText().substring(6,10));
+            LocalDateTime dataNascimento = LocalDateTime.of(ano, mes, dia, 0, 0, 0);
+            LocalDateTime hoje = LocalDateTime.now();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdicionarUsuario().setVisible(true);
-            }
-        });
-    }
+            long idade = dataNascimento.until(hoje, ChronoUnit.YEARS);
+            String sIdade = Long.toString(idade); 
+            
+            jLabel7.setText(sIdade);
+        
+    }//GEN-LAST:event_txtNascimentoFocusLost
+
+    
 
     private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     public static boolean validaEmail(String email) {
@@ -387,12 +383,15 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             return false;
         }
     }
+
     
+        
+        
     /*public static int idade (String data) {
         if (!validaData(data)) {
             return 0;
         }
-
+            ESPECIFICAR FUSO
         try {
             Date birthDate = DATE_FORMAT.parse(data);
             Calendar birthCal = Calendar.getInstance();
