@@ -126,13 +126,15 @@ public class Tabela extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel dados = (DefaultTableModel) this.tabela.getModel();
+        //DefaultTableModel dados = (DefaultTableModel) this.tabela.getModel();
         //dados.addRow(new Object[]{this.nome.getText()});
         
+        System.out.println("Testando 123");
         //fazer um for para cada item da lista, fazendo o add row
-       // for(DadosPessoa d: dados){
+       for(DadosPessoa d: dados){
         //    addRow(new Object[] {this.txtNome.getText()});
-       // }
+        System.out.println("nome: "+ d.getNome());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
    

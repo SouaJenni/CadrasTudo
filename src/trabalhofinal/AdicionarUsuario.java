@@ -7,6 +7,7 @@ package trabalhofinal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +43,7 @@ public class AdicionarUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -58,10 +60,10 @@ public class AdicionarUsuario extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         bits = new javax.swing.JSpinner();
         inscrito = new javax.swing.JCheckBox();
-        jLabel10 = new javax.swing.JLabel();
         masculino = new javax.swing.JRadioButton();
         feminino = new javax.swing.JRadioButton();
         naoBinario = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
         btSalvar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
 
@@ -117,11 +119,10 @@ public class AdicionarUsuario extends javax.swing.JFrame {
 
         inscrito.setText("Inscrito");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel10.setText("Sexo:");
-
+        buttonGroup1.add(masculino);
         masculino.setText("Masculino");
 
+        buttonGroup1.add(feminino);
         feminino.setText("Feminino");
         feminino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +130,11 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(naoBinario);
         naoBinario.setText("Não binário");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Sexo:");
 
         btSalvar.setText("SALVAR");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -150,50 +155,51 @@ public class AdicionarUsuario extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUsuario)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(bits, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(inscrito))
-                            .addComponent(jLabel2)
-                            .addComponent(txtNome)
-                            .addComponent(jLabel3)
-                            .addComponent(txtEmail)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNascimento))
-                                .addGap(39, 39, 39)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jLabel7)))
-                                .addGap(41, 41, 41)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txtDataInscricao, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(masculino)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(feminino)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(naoBinario)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(btSalvar)
                 .addGap(56, 56, 56)
                 .addComponent(btVoltar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsuario)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(masculino)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(feminino)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(naoBinario))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(bits, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(inscrito))
+                                .addComponent(jLabel2)
+                                .addComponent(txtNome)
+                                .addComponent(jLabel3)
+                                .addComponent(txtEmail)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtNascimento))
+                                    .addGap(39, 39, 39)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(10, 10, 10)
+                                            .addComponent(jLabel7)))
+                                    .addGap(41, 41, 41)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel6)
+                                        .addComponent(txtDataInscricao, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,12 +234,12 @@ public class AdicionarUsuario extends javax.swing.JFrame {
                     .addComponent(inscrito))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(masculino)
                     .addComponent(feminino)
                     .addComponent(naoBinario))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btVoltar))
@@ -280,9 +286,33 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Apenas maiores de 18 podem se registrar!");
             }   
         
-        //dados.add NOVO USUARIO
         
         if(validaEmail(email) && validaUsuario(usuario) && ehMaior){
+            DadosPessoa dados = new DadosPessoa();
+            dados.setNome(this.txtNome.getText());
+            dados.setIdade(Integer.parseInt(this.jLabel7.getText()));
+            dados.setEmail(this.txtEmail.getText());
+            dados.setUsuario(this.txtUsuario.getText());
+
+            if(this.masculino.isSelected()){
+                dados.setSexo("m");
+            }else if(this.feminino.isSelected()){
+                dados.setSexo("f");
+            }else {
+                dados.setSexo("nb");
+            }
+
+            dados.setInscrito(this.inscrito.isSelected());
+
+            int dia = Integer.parseInt(this.txtNascimento.getText().substring(0,2));
+            int mes = Integer.parseInt(this.txtNascimento.getText().substring(3,5));
+            int ano = Integer.parseInt(this.txtNascimento.getText().substring(6,10));
+            LocalDateTime dataNascimento = LocalDateTime.of(ano, mes, dia, 0, 0, 0);
+            Date nascimento = Date.from(dataNascimento.atZone(ZoneId.systemDefault()).toInstant());
+
+            dados.setNascimento(nascimento);
+            this.dados.add(dados);
+        
             Tabela tabela = new Tabela (this.dados);
             this.setVisible(false);
             tabela.setVisible(true);
@@ -415,6 +445,7 @@ public class AdicionarUsuario extends javax.swing.JFrame {
     private javax.swing.JSpinner bits;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btVoltar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton feminino;
     private javax.swing.JCheckBox inscrito;
     private javax.swing.JLabel jLabel1;
