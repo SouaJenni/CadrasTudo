@@ -4,6 +4,8 @@
  */
 package trabalhofinal;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -25,6 +27,7 @@ public class Tabela extends javax.swing.JFrame {
     
     public Tabela(List<DadosPessoa> dados) {
         this.dados = dados;
+        atualizarTabela();
         initComponents();
     }
 
@@ -126,18 +129,23 @@ public class Tabela extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //DefaultTableModel dados = (DefaultTableModel) this.tabela.getModel();
-        //dados.addRow(new Object[]{this.nome.getText()});
-        
-        System.out.println("Testando 123");
-        //fazer um for para cada item da lista, fazendo o add row
-       for(DadosPessoa d: dados){
-        //    addRow(new Object[] {this.txtNome.getText()});
-        System.out.println("nome: "+ d.getNome());
-        }
+       atualizarTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-   
+   private void atualizarTabela (){
+        DefaultTableModel modeloTabela = (DefaultTableModel) this.tabela.getModel();
+        //dados.addRow(new Object[]{this.nome.getText()});
+        int i = 0;
+        
+       for(DadosPessoa d: dados){
+           String inscrito = d.getInscrito() ? "Sim":"Não";
+           String pattern = "dd/MM/yyyy";
+           DateFormat df = new SimpleDateFormat(pattern); 
+           String nascimento = df.format(d.getNascimento());
+           modeloTabela.insertRow(i, new Object[]{d.getNome(), d.getSexo(), d.getIdade(), d.getUsuario(), nascimento, "100", inscrito});
+           i++;
+        }
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;

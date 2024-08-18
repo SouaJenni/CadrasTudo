@@ -21,6 +21,8 @@ public class DadosPessoa{
     private boolean inscrito;
     private int idade;
     private String sexo;
+    private Date inscricao;
+    private int bits;
 
     public String getNome() {
         return nome;
@@ -78,5 +80,23 @@ public class DadosPessoa{
         this.sexo = sexo;
     }
     
-    
+    public boolean getInscrito (){
+        return this.inscrito;
+    }
+
+    public Date getInscricao() {
+        return inscricao;
+    }
+
+    public void setInscricao(Date inscricao) {
+        this.inscricao = inscricao;
+    }
+
+    public int getBits() {
+        return bits;
+    }
+
+    public void setBits(int bits) {
+        this.bits = bits;
+    }
 }
