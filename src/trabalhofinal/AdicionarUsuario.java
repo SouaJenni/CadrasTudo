@@ -293,6 +293,8 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             dados.setIdade(Integer.parseInt(this.jLabel7.getText()));
             dados.setEmail(this.txtEmail.getText());
             dados.setUsuario(this.txtUsuario.getText());
+            int bits =(Integer) this.bits.getValue();
+            dados.setBits(bits);
 
             if(this.masculino.isSelected()){
                 dados.setSexo("m");
@@ -413,32 +415,6 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             return false;
         }
     }
-
-    
-        
-        
-    /*public static int idade (String data) {
-        if (!validaData(data)) {
-            return 0;
-        }
-            ESPECIFICAR FUSO
-        try {
-            Date birthDate = DATE_FORMAT.parse(data);
-            Calendar birthCal = Calendar.getInstance();
-            birthCal.setTime(birthDate);
-
-            Calendar todayCal = Calendar.getInstance();
-
-            int age = todayCal.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
-            if (todayCal.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) {
-                age--;
-            }
-
-            return age;
-        } catch (ParseException e) {
-            return 0;
-        }
-    }*/
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

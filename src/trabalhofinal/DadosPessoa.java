@@ -19,8 +19,8 @@ public class DadosPessoa{
     private String usuario;
     private Date nascimento;
     private boolean inscrito;
-    private int idade;
     private String sexo;
+    private int idade;
     private Date inscricao;
     private int bits;
 
@@ -64,14 +64,6 @@ public class DadosPessoa{
         this.inscrito = inscrito;
     }
 
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
     public String getSexo() {
         return sexo;
     }
@@ -98,5 +90,13 @@ public class DadosPessoa{
 
     public void setBits(int bits) {
         this.bits = bits;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 }

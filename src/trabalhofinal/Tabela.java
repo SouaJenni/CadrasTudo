@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,8 +28,8 @@ public class Tabela extends javax.swing.JFrame {
     
     public Tabela(List<DadosPessoa> dados) {
         this.dados = dados;
-        atualizarTabela();
         initComponents();
+        atualizarTabela();
     }
 
     /**
@@ -131,8 +132,9 @@ public class Tabela extends javax.swing.JFrame {
         // TODO add your handling code here:
        atualizarTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-   private void atualizarTabela (){
+    
+    private void atualizarTabela (){
+        //tabela = new JTable (new DefaultTableModel());
         DefaultTableModel modeloTabela = (DefaultTableModel) this.tabela.getModel();
         //dados.addRow(new Object[]{this.nome.getText()});
         int i = 0;
@@ -142,7 +144,7 @@ public class Tabela extends javax.swing.JFrame {
            String pattern = "dd/MM/yyyy";
            DateFormat df = new SimpleDateFormat(pattern); 
            String nascimento = df.format(d.getNascimento());
-           modeloTabela.insertRow(i, new Object[]{d.getNome(), d.getSexo(), d.getIdade(), d.getUsuario(), nascimento, "100", inscrito});
+           modeloTabela.insertRow(i, new Object[]{d.getNome(), d.getSexo(), d.getIdade(), d.getUsuario(), nascimento, d.getBits(), inscrito});
            i++;
         }
    }
