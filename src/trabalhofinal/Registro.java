@@ -4,10 +4,18 @@
  */
 package trabalhofinal;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -17,11 +25,12 @@ import javax.swing.JOptionPane;
  * @author Daniel Dória
  */
 public class Registro extends javax.swing.JFrame {
-
+    private List<Usuarios> usuarios;
     /**
      * Creates new form Registro
      */
-    public Registro() {
+    public Registro(List<Usuarios> usuarios) {
+        this.usuarios = usuarios;
         initComponents();
     }
 
@@ -176,7 +185,7 @@ public class Registro extends javax.swing.JFrame {
            
         String data = txtNascimento.getText();
         validaData(data);
-        String String;
+        String String = null;
         
         boolean ehMaior = maiorDe18(data);
         
@@ -191,6 +200,44 @@ public class Registro extends javax.swing.JFrame {
         }   
         
         if(validaEmail(email) && validaUsuario(usuario) && ehMaior && senha.equals(confirmarSenha)){
+            Usuarios usuarios = new Usuarios ();
+            usuarios.setUsuario(this.txtUsuario.getText());
+            usuarios.setNome(this.txtNome.getText());
+            usuarios.setEmail(this.txtEmail.getText());
+            
+            int dia = Integer.parseInt(this.txtNascimento.getText().substring(0,2));
+            int mes = Integer.parseInt(this.txtNascimento.getText().substring(3,5));
+            int ano = Integer.parseInt(this.txtNascimento.getText().substring(6,10));
+            LocalDateTime dataNascimento = LocalDateTime.of(ano, mes, dia, 0, 0, 0);
+            Date nascimento = Date.from(dataNascimento.atZone(ZoneId.systemDefault()).toInstant());
+
+            usuarios.setDatanascimento(nascimento);
+            this.usuarios.add(usuarios);
+            
+            String senhaDigitada = new String(txtSenha.getPassword());  
+            MessageDigest algorithm = null;
+            try {
+                algorithm = MessageDigest.getInstance("SHA-256");
+            } catch (NoSuchAlgorithmException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar");
+            }
+            byte[] messageDigest = null;
+            try {
+                messageDigest = algorithm.digest(senhaDigitada.getBytes("UTF-8"));
+            } catch (UnsupportedEncodingException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar");
+            }
+        
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+            hexString.append(String.format("%02x", b));
+            }
+        
+            String senhaHash = hexString.toString();
+                 if (!senhaHash.equals(senhaHash)) {
+                JOptionPane.showMessageDialog(null, "Senha incorreta");
+                }
+            
             Tabela tabela = new Tabela ();
             this.setVisible(false);
             tabela.setVisible(true);

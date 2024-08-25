@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniel Dória
  */
 public class Tabela extends javax.swing.JFrame {
-     private List<DadosPessoa> dados;
+    private List<DadosPessoa> dados;
     /**
      * Creates new form Tabela
      */
@@ -136,7 +136,6 @@ public class Tabela extends javax.swing.JFrame {
     private void atualizarTabela (){
         //tabela = new JTable (new DefaultTableModel());
         DefaultTableModel modeloTabela = (DefaultTableModel) this.tabela.getModel();
-        //dados.addRow(new Object[]{this.nome.getText()});
         int i = 0;
         
        for(DadosPessoa d: dados){

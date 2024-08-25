@@ -15,7 +15,7 @@ public class Usuarios {
     private String usuario;
     private String senha;
     private String email;
-    private Date datanascimento;
+    private Date nascimento;
 
     public String getNome() {
         return nome;
@@ -50,10 +50,10 @@ public class Usuarios {
     }
 
     public Date getDatanascimento() {
-        return datanascimento;
+        return nascimento;
     }
 
     public void setDatanascimento(Date datanascimento) {
-        this.datanascimento = datanascimento;
+        this.nascimento = datanascimento;
     }
 }

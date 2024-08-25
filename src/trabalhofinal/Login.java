@@ -4,16 +4,25 @@
  */
 package trabalhofinal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Daniel Dória
  */
 public class Login extends javax.swing.JFrame {
-
+    private List<Usuarios> usuarios;
     /**
      * Creates new form Login
      */
     public Login() {
+        this.usuarios = new ArrayList<> ();
+        initComponents();
+    }
+    
+    public Login(List<Usuarios> usuarios){
+        this.usuarios = usuarios;
         initComponents();
     }
 
@@ -131,7 +140,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
         // TODO add your handling code here:
-        Registro registro = new Registro ();
+        Registro registro = new Registro(this.usuarios);
         this.setVisible(false);
         registro.setVisible(true);
     }//GEN-LAST:event_btRegistrarActionPerformed
