@@ -280,14 +280,10 @@ public class AdicionarUsuario extends javax.swing.JFrame {
         validaData(data);
         String String;
         
-        boolean ehMaior = maiorDe18(data);
-        
-            if(!ehMaior){
-            JOptionPane.showMessageDialog(null, "Apenas maiores de 18 podem se registrar!");
-            }   
+           
         
         
-        if(validaEmail(email) && validaUsuario(usuario) && ehMaior){
+        if(validaEmail(email) && validaUsuario(usuario) && validaData(data)){
             DadosPessoa dados = new DadosPessoa();
             dados.setNome(this.txtNome.getText());
             dados.setIdade(Integer.parseInt(this.jLabel7.getText()));
@@ -329,7 +325,7 @@ public class AdicionarUsuario extends javax.swing.JFrame {
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         // TODO add your handling code here:
-        Tabela tabela = new Tabela ();
+        Tabela tabela = new Tabela (this.dados);
         this.setVisible(false);
         tabela.setVisible(true);                             
     }//GEN-LAST:event_btVoltarActionPerformed
@@ -393,28 +389,6 @@ public class AdicionarUsuario extends javax.swing.JFrame {
             }
     }
     
-    public static boolean maiorDe18(String data) {
-        if (!validaData(data)) {
-            return false;
-        }
-
-        try {
-            Date birthDate = DATE_FORMAT.parse(data);
-            Calendar birthCal = Calendar.getInstance();
-            birthCal.setTime(birthDate);
-
-            Calendar todayCal = Calendar.getInstance();
-
-            int age = todayCal.get(Calendar.YEAR) - birthCal.get(Calendar.YEAR);
-            if (todayCal.get(Calendar.DAY_OF_YEAR) < birthCal.get(Calendar.DAY_OF_YEAR)) {
-                age--;
-            }
-
-            return age >= 18;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

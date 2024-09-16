@@ -125,7 +125,11 @@ public class Tabela extends javax.swing.JFrame {
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
+        AdicionarUsuario adicionar = new AdicionarUsuario (this.dados);
+        this.setVisible(false);
+        adicionar.setVisible(true);
         
+        //.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
