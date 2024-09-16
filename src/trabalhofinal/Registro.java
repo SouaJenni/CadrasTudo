@@ -232,9 +232,9 @@ public class Registro extends javax.swing.JFrame {
             Date nascimento = Date.from(dataNascimento.atZone(ZoneId.systemDefault()).toInstant());
 
             usuarios.setDatanascimento(nascimento);
-            //this.usuarios.add(usuarios);
+            this.usuarios.add(usuarios);
             
-            GerenciadorUsuarios.adicionarUsuario(usuarios);
+            //GerenciadorUsuarios.adicionarUsuario(usuarios);
             //APAGAR DEPOIS
             System.out.println("Total de usuários registrados: " + GerenciadorUsuarios.usuariosRegistrados.size());
             //APAGAR DEPOIS    
