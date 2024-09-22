@@ -14,9 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     private List<Usuarios> usuarios;
+    private Usuarios usuarioLogado;
     /**
      * Creates new form Login
      */
+    
+        
     public Login() {
         this.usuarios = new ArrayList<> ( );
         initComponents();
@@ -24,8 +27,11 @@ public class Login extends javax.swing.JFrame {
     
     public Login(List<Usuarios> usuarios){
         this.usuarios = usuarios;
+        this.usuarioLogado = usuarioLogado;
         initComponents();
     } 
+    
+    
     
 
     /**
@@ -165,10 +171,15 @@ public class Login extends javax.swing.JFrame {
         System.out.println("Tentativa de login - Usuário: " + usuario + ", Senha: " + senha);
 
         Usuarios usuarioLogado = GerenciadorUsuarios.verificarLogin(usuario, senha);
+      
             if (usuarioLogado != null) {
+                this.usuarioLogado = usuarioLogado;
                 Tabela tabela = new Tabela ();
                 this.setVisible(false);
                 tabela.setVisible(true);
+                
+                //APAGAR DEPOIS
+                System.out.println(this.usuarioLogado);
         
             } else {
                 JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos.");
@@ -183,6 +194,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSenhaActionPerformed
 
+    
     
   
     

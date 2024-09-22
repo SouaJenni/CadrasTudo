@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Tabela extends javax.swing.JFrame {
     private List<DadosPessoa> dados;
+    private List<Usuarios> usuarioLogado;
     /**
      * Creates new form Tabela
      */
@@ -84,7 +85,12 @@ public class Tabela extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("FAZER UM VOLTAR AQUI");
+        jButton2.setText("VOLTAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,6 +148,16 @@ public class Tabela extends javax.swing.JFrame {
         // TODO add your handling code here:
        atualizarTabela();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+            Login login = new Login (this.usuarioLogado);
+            this.setVisible(false);
+            login.setVisible(true);
+            
+            //APAGAR DEPOIS
+            System.out.println(usuarioLogado);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void atualizarTabela (){
         //tabela = new JTable (new DefaultTableModel());
